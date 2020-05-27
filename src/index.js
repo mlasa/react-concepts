@@ -1,4 +1,9 @@
-import { React } from "react";
-import { render } from "react-dom";
+import React  from "react";
+import ReactDOM  from "react-dom";
 
-render(<h1> Hello World! </h1>, document.getElementById("app"));
+ReactDOM.render(<h1> Hello World! </h1>, document.getElementById("app"));
+
+// const soma = (a, b) => {
+//   return a + b;
+// };
+// console.log(soma(2, 10));
