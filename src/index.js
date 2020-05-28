@@ -1,9 +1,6 @@
-import React  from "react";
-import ReactDOM  from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(<h1> Hello World! </h1>, document.getElementById("app"));
+import Header from "./components/Header";
 
-// const soma = (a, b) => {
-//   return a + b;
-// };
-// console.log(soma(2, 10));
+ReactDOM.render(<Header />, document.getElementById("app"));
