@@ -1,22 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 
 export default function App() {
-  const title = "Marcella";
+	const [projects, setProjects] = useState(["BB8 - Star Wars", "EVA - Wall-E"]);
+
+  function handleAddProject() {
+		setProjects([...projects, "Pro"+Math.floor(Math.random() * 100)]);//
+    console.log(projects);
+  }
+
   return (
     <>
-			<Header title={title}>
-				<ul>
-					<li>Idade:22</li>
-					<li>Campinas-SP</li>
-				</ul>
-			</Header>
-			<Header title="Projects">
-				<ul>
-					<li>BB8</li>
-					<li>Jeany</li>
-				</ul>	
-			</Header>
+      <Header title="Projects" />
+      <ul>
+        {projects.map((project,index) => <li key={index}>{project}</li>)}
+      </ul>
+      <button onClick={handleAddProject}>Add new project</button>
     </>
   );
 }
