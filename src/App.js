@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import api from "./services/api";
 
 import "./App.css";
 import backgroundImage from "./assets/photo.jpeg";
@@ -6,27 +7,46 @@ import backgroundImage from "./assets/photo.jpeg";
 import Header from "./components/Header";
 
 export default function App() {
-  const [projects, setProjects] = useState([
-    "London - England",
-    "Rio de Janeiro - Brazil",
-  ]);
+  const [projects, setProjects] = useState([]);
 
-  function handleAddProject() {
-    setProjects([...projects, "Trip" + Math.floor(Math.random() * 100)]); //
+  useEffect(() => {
+    api.get("/projects").then((response) => {
+      setProjects(response.data);
+    });
+  }, []);
+
+  async function handleAddProject() {
+    // setProjects([...projects, "Pro" + Math.floor(Math.random() * 100)]); //
+    const response = await api.post("/projects", {
+      title: `EVA${Math.floor(Math.random() * 100)}`,
+      owner: "mlasa",
+    });
+    setProjects([...projects,response.data])
+
     console.log(projects);
   }
 
   return (
     <>
-      <Header title="Trips" />
-      <img height="600" src={backgroundImage} />
+      <Header title="Projects" />
       <ul>
-        {projects.map((project, index) => (
-          <li key={index}>{project}</li>
+        {projects.map((project) => (
+          <li key={project.id}>{project.title}</li>
         ))}
       </ul>
-      <input type="text" name="destiny" id="destiny" placeholder="Trip" />
-      <button onClick={handleAddProject}>Add new trip</button>
+      <input
+        type="text"
+        name="nameProject"
+        id="nameProject"
+        placeholder="Name project"
+      />
+      <input
+        type="text"
+        name="projectOwner"
+        id="projectOwner"
+        placeholder="Project owner"
+      />
+      <button onClick={handleAddProject}>Add new project</button>
     </>
   );
 }
